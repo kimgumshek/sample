@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sample1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9489b0e4-c3cb-4349-b672-29fc3aa0b96c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM MODELS]]>
+	</queryString>
+	<field name="MODEL_CODE" class="java.lang.String"/>
+	<field name="MODEL_NAME" class="java.lang.String"/>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="91" y="2" width="100" height="20" uuid="e34ab50e-8e52-4f6c-a83b-ce18f4ec9c59"/>
+				<text><![CDATA[MODEL_CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="2" width="100" height="20" uuid="18090b25-7d63-48d4-98f3-f640588eed3b"/>
+				<text><![CDATA[MODEL_NAME]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="91" y="0" width="100" height="20" uuid="6d891762-2057-4c35-8f4e-2b1d738c9be8"/>
+				<textFieldExpression><![CDATA[$F{MODEL_CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="0" width="100" height="20" uuid="80943ef7-afa5-442b-b3e5-15be59a71bee"/>
+				<textFieldExpression><![CDATA[$F{MODEL_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
