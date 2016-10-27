@@ -24,13 +24,23 @@ public class Sample {
 
 	public static void main(String[] args) {
 		System.out.println("Start ....");
+		
+		if(args.length ==0)
+			System.err.println("Require Parameter [MODEL_CODE]");
+		
 		Sample sample = new Sample();
-		sample.execute();
+		for(String modelCode : args){
+			sample.execute(modelCode);
+		}
 		System.out.println("Finish ....");
 	}
 	
 	public Sample(){
-		outputFileL = new ArrayList<String>();
+		try{
+			getConnection();
+		} catch(Exception ex){
+			ex.printStackTrace(System.err);
+		}
 	}
 	
 	private String REPORT_JASPER	= "sample1.jasper" ;
@@ -49,13 +59,12 @@ public class Sample {
 	
 	private List<String> outputFileL = null ;
 	
-	private void execute(){
+	private void execute(String modelCode){
 		try {
-			getConnection();
-			
-			gernerateReport("V100001");
+			outputFileL = null;
+			gernerateReport(modelCode);
 
-			System.out.println("Done exporting reports to pdf");
+			System.out.println("Done exporting reports to pdf "+modelCode);
 
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -64,6 +73,8 @@ public class Sample {
 	
 	private void gernerateReport(String modelCode) throws Exception{
 		System.out.println("Generate Report [Model Code :"+modelCode+"]");
+		
+		outputFileL = new ArrayList<String>();
 		
 		JRProperties.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "true");
 		JRProperties.setProperty("net.sf.jasperreports.default.font.name", defaultPDFFont);
@@ -74,7 +85,6 @@ public class Sample {
 		JasperReport frm011Jasper = getJasperReport(RPT_FORM011);
 		JasperPrint frm011JasPrint = fillReport( frm011Jasper, params, conn);
 		exportToPdf(modelCode,RPT_FORM011,frm011JasPrint);
-		
 		
 		JasperReport frm012Jasper = getJasperReport(RPT_FORM012);
 		JasperPrint frm012JasPrint = fillReport( frm012Jasper, params, conn);
@@ -139,7 +149,7 @@ public class Sample {
 		
 		if(conn ==null){
 			String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe";
-			String dbDriver = "oracle.jdbc.driver.OracleDriver";
+			String dbDriver = "oracle.jdbc.OracleDriver";
 			String dbUname = "arms";
 			String dbPwd = "arms";
 			
